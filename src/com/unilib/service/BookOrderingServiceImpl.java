@@ -23,17 +23,6 @@ import com.unilib.util.Constants;
 
 public class BookOrderingServiceImpl implements BookOrderingService {
 
-	/*
-	 * @Override public String orderBook(Integer studentId, String studentPin,
-	 * String bookIsbn) {
-	 * 
-	 * Validation validation = new Validation();
-	 * 
-	 * 
-	 * 
-	 * return "Chill"; }
-	 */
-
 	private BookInformationServiceImplStub bookInfoStub = null;
 	private BookInventoryServiceImplStub bookInventStub = null;
 	private StudentServiceImplStub studentStub = null;
@@ -58,7 +47,6 @@ public class BookOrderingServiceImpl implements BookOrderingService {
 		try {
 			validateStudentResponse = getStudentStub().validateStudent(validateStudent0);
 		} catch (RemoteException e) {
-			e.printStackTrace();
 		}
 
 		if (validateStudentResponse == null) {
@@ -85,7 +73,6 @@ public class BookOrderingServiceImpl implements BookOrderingService {
 				try {
 					validateBookResponse = getBookInventStub().validateBook(validateBook2);
 				} catch (RemoteException e) {
-					e.printStackTrace();
 				}
 
 				if (validateBookResponse == null) {
@@ -107,13 +94,12 @@ public class BookOrderingServiceImpl implements BookOrderingService {
 					try {
 						getBookFromMarketResponse = getBookInfoStub().getBookFromMarket(getBookFromMarket2);
 					} catch (RemoteException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
 					}
 					
 					if(getBookFromMarketResponse == null) {
 						validation.statusMessage = "No book found in market of good quality";
 					} else {
+						// Save book
 						
 						SaveBook saveBook0 = new SaveBook();
 						
@@ -129,9 +115,6 @@ public class BookOrderingServiceImpl implements BookOrderingService {
 						
 					}
 					
-					// Assess book quality
-					
-					// Save book
 				}
 
 
