@@ -1,0 +1,113 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:ax27="http://dao.unilib.com/xsd" xmlns:ns="http://service.unilib.com"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://org.apache.axis2/xsd"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" targetNamespace="http://service.unilib.com">
+	<wsdl:documentation>Please Type your service description here</wsdl:documentation>
+	<wsdl:types>
+		<xs:schema xmlns:ax28="http://dao.unilib.com/xsd"
+			attributeFormDefault="qualified" elementFormDefault="qualified"
+			targetNamespace="http://service.unilib.com">
+			<xs:import namespace="http://dao.unilib.com/xsd" />
+			<xs:element name="validateStudent">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="student" nillable="true"
+							type="ax28:Student" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="validateStudentResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="xs:boolean" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:schema>
+		<xs:schema attributeFormDefault="qualified"
+			elementFormDefault="qualified" targetNamespace="http://dao.unilib.com/xsd">
+			<xs:complexType name="Student">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="id" nillable="true"
+						type="xs:int" />
+					<xs:element minOccurs="0" name="name" nillable="true"
+						type="xs:string" />
+					<xs:element minOccurs="0" name="pin" nillable="true"
+						type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="validateStudentRequest">
+		<wsdl:part name="parameters" element="ns:validateStudent" />
+	</wsdl:message>
+	<wsdl:message name="validateStudentResponse">
+		<wsdl:part name="parameters" element="ns:validateStudentResponse" />
+	</wsdl:message>
+	<wsdl:portType name="StudentServiceImplPortType">
+		<wsdl:operation name="validateStudent">
+			<wsdl:input message="ns:validateStudentRequest"
+				wsaw:Action="urn:validateStudent" />
+			<wsdl:output message="ns:validateStudentResponse"
+				wsaw:Action="urn:validateStudentResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="StudentServiceImplSoap11Binding" type="ns:StudentServiceImplPortType">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document" />
+		<wsdl:operation name="validateStudent">
+			<soap:operation soapAction="urn:validateStudent"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="StudentServiceImplSoap12Binding" type="ns:StudentServiceImplPortType">
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document" />
+		<wsdl:operation name="validateStudent">
+			<soap12:operation soapAction="urn:validateStudent"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="StudentServiceImplHttpBinding" type="ns:StudentServiceImplPortType">
+		<http:binding verb="POST" />
+		<wsdl:operation name="validateStudent">
+			<http:operation location="validateStudent" />
+			<wsdl:input>
+				<mime:content type="application/xml" part="parameters" />
+			</wsdl:input>
+			<wsdl:output>
+				<mime:content type="application/xml" part="parameters" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="StudentServiceImpl">
+		<wsdl:port name="StudentServiceImplHttpSoap11Endpoint"
+			binding="ns:StudentServiceImplSoap11Binding">
+			<soap:address
+				location="http://localhost:8081/WSProject/services/StudentServiceImpl.StudentServiceImplHttpSoap11Endpoint/" />
+		</wsdl:port>
+		<wsdl:port name="StudentServiceImplHttpSoap12Endpoint"
+			binding="ns:StudentServiceImplSoap12Binding">
+			<soap12:address
+				location="http://localhost:8081/WSProject/services/StudentServiceImpl.StudentServiceImplHttpSoap12Endpoint/" />
+		</wsdl:port>
+		<wsdl:port name="StudentServiceImplHttpEndpoint" binding="ns:StudentServiceImplHttpBinding">
+			<http:address
+				location="http://localhost:8081/WSProject/services/StudentServiceImpl.StudentServiceImplHttpEndpoint/" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>s
