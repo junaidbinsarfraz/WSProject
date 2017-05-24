@@ -21,6 +21,10 @@ public class BookInformationServiceImpl implements BookInformationService {
 		if (books == null || Boolean.TRUE.equals(books.isEmpty()) || Boolean.FALSE.equals(books.get(0).getIsbn().equals(book.getIsbn()))) {
 			return null;
 		}
+		
+		if(Boolean.FALSE.equals(isQualityWithinRange(book))) {
+			return null;
+		}
 
 		return books.get(0);
 	}
