@@ -1,0 +1,102 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:ns="http://service.unilib.com" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:ns1="http://org.apache.axis2/xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+	xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+	targetNamespace="http://service.unilib.com">
+	<wsdl:documentation>Please Type your service description here</wsdl:documentation>
+	<wsdl:types>
+		<xs:schema attributeFormDefault="qualified"
+			elementFormDefault="qualified" targetNamespace="http://service.unilib.com">
+			<xs:element name="orderBook">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="studentId" type="xs:int" />
+						<xs:element minOccurs="0" name="studentPin" nillable="true"
+							type="xs:string" />
+						<xs:element minOccurs="0" name="bookIsbn" nillable="true"
+							type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="orderBookResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="return" nillable="true"
+							type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="orderBookRequest">
+		<wsdl:part name="parameters" element="ns:orderBook" />
+	</wsdl:message>
+	<wsdl:message name="orderBookResponse">
+		<wsdl:part name="parameters" element="ns:orderBookResponse" />
+	</wsdl:message>
+	<wsdl:portType name="BookOrderingServiceImplPortType">
+		<wsdl:operation name="orderBook">
+			<wsdl:input message="ns:orderBookRequest" wsaw:Action="urn:orderBook" />
+			<wsdl:output message="ns:orderBookResponse" wsaw:Action="urn:orderBookResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="BookOrderingServiceImplSoap11Binding"
+		type="ns:BookOrderingServiceImplPortType">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document" />
+		<wsdl:operation name="orderBook">
+			<soap:operation soapAction="urn:orderBook" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="BookOrderingServiceImplSoap12Binding"
+		type="ns:BookOrderingServiceImplPortType">
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document" />
+		<wsdl:operation name="orderBook">
+			<soap12:operation soapAction="urn:orderBook" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="BookOrderingServiceImplHttpBinding"
+		type="ns:BookOrderingServiceImplPortType">
+		<http:binding verb="POST" />
+		<wsdl:operation name="orderBook">
+			<http:operation location="orderBook" />
+			<wsdl:input>
+				<mime:content type="application/xml" part="parameters" />
+			</wsdl:input>
+			<wsdl:output>
+				<mime:content type="application/xml" part="parameters" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="BookOrderingServiceImpl">
+		<wsdl:port name="BookOrderingServiceImplHttpSoap11Endpoint"
+			binding="ns:BookOrderingServiceImplSoap11Binding">
+			<soap:address
+				location="http://localhost:8081/WSProject/services/BookOrderingServiceImpl.BookOrderingServiceImplHttpSoap11Endpoint/" />
+		</wsdl:port>
+		<wsdl:port name="BookOrderingServiceImplHttpSoap12Endpoint"
+			binding="ns:BookOrderingServiceImplSoap12Binding">
+			<soap12:address
+				location="http://localhost:8081/WSProject/services/BookOrderingServiceImpl.BookOrderingServiceImplHttpSoap12Endpoint/" />
+		</wsdl:port>
+		<wsdl:port name="BookOrderingServiceImplHttpEndpoint"
+			binding="ns:BookOrderingServiceImplHttpBinding">
+			<http:address
+				location="http://localhost:8081/WSProject/services/BookOrderingServiceImpl.BookOrderingServiceImplHttpEndpoint/" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,186 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:ns="http://service.unilib.com" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:ax21="http://dao.unilib.com/xsd" xmlns:ns1="http://org.apache.axis2/xsd"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" targetNamespace="http://service.unilib.com">
+	<wsdl:documentation>Please Type your service description here</wsdl:documentation>
+	<wsdl:types>
+		<xs:schema xmlns:ax22="http://dao.unilib.com/xsd"
+			attributeFormDefault="qualified" elementFormDefault="qualified"
+			targetNamespace="http://service.unilib.com">
+			<xs:import namespace="http://dao.unilib.com/xsd" />
+			<xs:element name="isQualityWithinRange">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="book" nillable="true"
+							type="ax22:Book" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="isQualityWithinRangeResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="xs:boolean" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getBookFromMarket">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="book" nillable="true"
+							type="ax22:Book" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getBookFromMarketResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="return" nillable="true"
+							type="ax22:Book" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:schema>
+		<xs:schema attributeFormDefault="qualified"
+			elementFormDefault="qualified" targetNamespace="http://dao.unilib.com/xsd">
+			<xs:complexType name="Book">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="authors" nillable="true"
+						type="xs:string" />
+					<xs:element minOccurs="0" name="id" nillable="true"
+						type="xs:int" />
+					<xs:element minOccurs="0" name="inlib" nillable="true"
+						type="xs:boolean" />
+					<xs:element minOccurs="0" name="isbn" nillable="true"
+						type="xs:string" />
+					<xs:element minOccurs="0" name="publisheddate" nillable="true"
+						type="xs:date" />
+					<xs:element minOccurs="0" name="publisher" nillable="true"
+						type="xs:string" />
+					<xs:element minOccurs="0" name="rating" nillable="true"
+						type="xs:int" />
+					<xs:element minOccurs="0" name="status" nillable="true"
+						type="xs:string" />
+					<xs:element minOccurs="0" name="title" nillable="true"
+						type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="getBookFromMarketRequest">
+		<wsdl:part name="parameters" element="ns:getBookFromMarket" />
+	</wsdl:message>
+	<wsdl:message name="getBookFromMarketResponse">
+		<wsdl:part name="parameters" element="ns:getBookFromMarketResponse" />
+	</wsdl:message>
+	<wsdl:message name="isQualityWithinRangeRequest">
+		<wsdl:part name="parameters" element="ns:isQualityWithinRange" />
+	</wsdl:message>
+	<wsdl:message name="isQualityWithinRangeResponse">
+		<wsdl:part name="parameters" element="ns:isQualityWithinRangeResponse" />
+	</wsdl:message>
+	<wsdl:portType name="BookInformationServiceImplPortType">
+		<wsdl:operation name="getBookFromMarket">
+			<wsdl:input message="ns:getBookFromMarketRequest"
+				wsaw:Action="urn:getBookFromMarket" />
+			<wsdl:output message="ns:getBookFromMarketResponse"
+				wsaw:Action="urn:getBookFromMarketResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="isQualityWithinRange">
+			<wsdl:input message="ns:isQualityWithinRangeRequest"
+				wsaw:Action="urn:isQualityWithinRange" />
+			<wsdl:output message="ns:isQualityWithinRangeResponse"
+				wsaw:Action="urn:isQualityWithinRangeResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="BookInformationServiceImplSoap11Binding"
+		type="ns:BookInformationServiceImplPortType">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document" />
+		<wsdl:operation name="getBookFromMarket">
+			<soap:operation soapAction="urn:getBookFromMarket"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="isQualityWithinRange">
+			<soap:operation soapAction="urn:isQualityWithinRange"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="BookInformationServiceImplSoap12Binding"
+		type="ns:BookInformationServiceImplPortType">
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document" />
+		<wsdl:operation name="getBookFromMarket">
+			<soap12:operation soapAction="urn:getBookFromMarket"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="isQualityWithinRange">
+			<soap12:operation soapAction="urn:isQualityWithinRange"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="BookInformationServiceImplHttpBinding"
+		type="ns:BookInformationServiceImplPortType">
+		<http:binding verb="POST" />
+		<wsdl:operation name="getBookFromMarket">
+			<http:operation location="getBookFromMarket" />
+			<wsdl:input>
+				<mime:content type="application/xml" part="parameters" />
+			</wsdl:input>
+			<wsdl:output>
+				<mime:content type="application/xml" part="parameters" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="isQualityWithinRange">
+			<http:operation location="isQualityWithinRange" />
+			<wsdl:input>
+				<mime:content type="application/xml" part="parameters" />
+			</wsdl:input>
+			<wsdl:output>
+				<mime:content type="application/xml" part="parameters" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="BookInformationServiceImpl">
+		<wsdl:port name="BookInformationServiceImplHttpSoap11Endpoint"
+			binding="ns:BookInformationServiceImplSoap11Binding">
+			<soap:address
+				location="http://localhost:8081/WSProject/services/BookInformationServiceImpl.BookInformationServiceImplHttpSoap11Endpoint/" />
+		</wsdl:port>
+		<wsdl:port name="BookInformationServiceImplHttpSoap12Endpoint"
+			binding="ns:BookInformationServiceImplSoap12Binding">
+			<soap12:address
+				location="http://localhost:8081/WSProject/services/BookInformationServiceImpl.BookInformationServiceImplHttpSoap12Endpoint/" />
+		</wsdl:port>
+		<wsdl:port name="BookInformationServiceImplHttpEndpoint"
+			binding="ns:BookInformationServiceImplHttpBinding">
+			<http:address
+				location="http://localhost:8081/WSProject/services/BookInformationServiceImpl.BookInformationServiceImplHttpEndpoint/" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
